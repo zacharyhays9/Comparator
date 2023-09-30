@@ -12,6 +12,7 @@ class Comparator:
         self.report = ()
         self.allReports = []
         self.commonContacts = []
+        self.reportDestination = ' '
         
 
     def readAlleapReports(self):
@@ -161,6 +162,15 @@ class Comparator:
         self.fileName = os.path.basename(filename)
         self.file = filename
 
+    def browseReportDestination(self):
+
+        path = filedialog.askdirectory(initialdir = "/", 
+                                            title = "Select a File")
+ 
+        self.reportDestination = path + '/report.html'
+
+        print(self.reportDestination)
+
        
        
 
@@ -212,7 +222,7 @@ class Comparator:
 
 
 
-        f = open('Desktop/report.html', 'w', encoding= 'utf-8')
+        f = open(self.reportDestination, 'w', encoding= 'utf-8')
         html_template = """<html>
         <head>
         <title>Comparator</title>
@@ -303,6 +313,7 @@ def main():
 
     btn3 = tk.Button(root, text="Add Files", command=lambda: open_popup(Output))
     
+    btn4 = tk.Button(root, text="Select Report Destination", command=lambda: p1.browseReportDestination())
   
     btn2 = tk.Button(root, text="Compare Contacts", command=lambda: compareFiles(Output))
  
@@ -310,6 +321,7 @@ def main():
     
 
     btn3.pack()
+    btn4.pack()
     btn2.pack()
     Output.pack()
       
